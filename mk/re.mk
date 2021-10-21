@@ -535,9 +535,14 @@ ifneq ($(HAVE_INTTYPES_H),)
 CFLAGS  += -DHAVE_INTTYPES_H
 endif
 
-HAVE_NET_ROUTE_H := $(shell $(call CC_TEST,net/route.h))
+#HAVE_NET_ROUTE_H := $(shell $(call CC_TEST,net/route.h))
+#ifneq ($(HAVE_NET_ROUTE_H),)
+#CFLAGS  += -DHAVE_NET_ROUTE_H
+#endif
+
+HAVE_NET_ROUTE_H := $(shell [ -f $(SYSROOT)/include/net/route.h ] && echo "1")
 ifneq ($(HAVE_NET_ROUTE_H),)
-CFLAGS  += -DHAVE_NET_ROUTE_H
+CFLAGS += -DHAVE_NET_ROUTE_H
 endif
 
 HAVE_SYS_SYSCTL_H := $(shell $(call CC_TEST,sys/sysctl.h))
